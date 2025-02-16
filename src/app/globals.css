@@ -1,0 +1,263 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root[data-theme="light"] {
+    --yellow-color: #f9df6d;
+    --green-color: #a0c35a;
+    --blue-color: #b0c4ef;
+    --purple-color: #ba81c5;
+    --red-color: #e57373;
+    --orange-color: #ffb74d;
+    --pink-color: #f06292;
+    --teal-color: #4db6ac;
+    --indigo-color: #7986cb;
+    --brown-color: #a1887f;
+    --cyan-color: #4dd0e1;
+    --lime-color: #dce775;
+    --violet-color: #ba68c8;
+    --magenta-color: #d81b60;
+    --slate-color: #78909c;
+    --emerald-color: #50c878;
+    --selected-color: #4a90e2;
+    --background-color: #ffffff;
+    --text-color: #000000;
+    --tile-background: #ffffff;
+    --tile-border: #ccc;
+    --tile-hover: #f0f0f0;
+    --shadow-color: rgba(0, 0, 0, 0.1);
+    --button-hover: #e0e0e0;
+}
+
+:root[data-theme="dark"] {
+    --yellow-color: #f9df6d;
+    --green-color: #a0c35a;
+    --blue-color: #b0c4ef;
+    --purple-color: #ba81c5;
+    --red-color: #e57373;
+    --orange-color: #ffb74d;
+    --pink-color: #f06292;
+    --teal-color: #4db6ac;
+    --indigo-color: #7986cb;
+    --brown-color: #a1887f;
+    --cyan-color: #4dd0e1;
+    --lime-color: #dce775;
+    --violet-color: #ba68c8;
+    --magenta-color: #d81b60;
+    --slate-color: #78909c;
+    --emerald-color: #50c878;
+    --selected-color: #2d5a8e;
+    --background-color: #1a1a1a;
+    --text-color: #ffffff;
+    --tile-background: #2d2d2d;
+    --tile-border: #444;
+    --tile-hover: #3d3d3d;
+    --shadow-color: rgba(255, 255, 255, 0.05);
+    --button-hover: #3d3d3d;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  color: var(--foreground);
+  background: var(--background);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+@layer utilities {
+    .perspective-1000 {
+        perspective: 1000px;
+    }
+    
+    .translate-z-5 {
+        transform: translateZ(5px);
+    }
+}
+
+@layer components {
+    .container {
+        @apply max-w-[600px] mx-auto p-5 shadow-lg rounded-xl bg-[var(--tile-background)] transition-shadow;
+    }
+
+    .header-content {
+        @apply flex justify-between items-center py-2.5 mb-8 border-b-2 border-[var(--tile-border)];
+    }
+
+    .header-buttons {
+        @apply flex gap-2.5 items-center;
+    }
+
+    .theme-toggle {
+        @apply bg-transparent border-2 border-[var(--tile-border)] text-2xl cursor-pointer p-2 rounded-full transition-all duration-300 text-[var(--text-color)] hover:rotate-180 hover:bg-[var(--button-hover)];
+    }
+
+    .how-to-play-btn {
+        @apply bg-transparent border-2 border-[var(--tile-border)] px-4 py-2 rounded-full cursor-pointer font-semibold text-[var(--text-color)] transition-all duration-300 hover:bg-[var(--button-hover)] hover:-translate-y-0.5;
+    }
+
+    .grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 0.75rem;
+        margin-bottom: 2rem;
+        @apply perspective-1000;
+    }
+
+    .word-tile {
+        @apply aspect-square border-2 border-[var(--tile-border)] rounded-xl bg-[var(--tile-background)] text-[var(--text-color)] text-base font-semibold cursor-pointer transition-all duration-300 relative overflow-hidden flex items-center justify-center text-center p-2.5 shadow-md;
+    }
+
+    .word-tile.selected {
+        @apply bg-[var(--selected-color)] text-white scale-95 translate-z-5 shadow-lg;
+    }
+
+    .word-tile-placeholder {
+        width: 100%;
+        height: 40px;
+        background-color: var(--background-color);
+        border: 2px solid var(--tile-border);
+        border-radius: 0.5rem;
+        opacity: 0.5;
+    }
+
+    .controls {
+        @apply flex justify-center gap-4 mb-8;
+    }
+
+    .controls button {
+        @apply px-6 py-3 text-base font-semibold rounded-lg border-none cursor-pointer transition-all duration-300 uppercase tracking-wider;
+    }
+
+    #submit-btn {
+        @apply bg-green-500 text-white shadow-md hover:-translate-y-0.5 hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed;
+    }
+
+    #shuffle-btn {
+        @apply bg-blue-500 text-white shadow-md hover:-translate-y-0.5 hover:shadow-lg;
+    }
+
+    .modal {
+        @apply fixed inset-0 bg-black/50 flex items-center justify-center z-50;
+    }
+
+    .modal-content {
+        @apply relative bg-[var(--tile-background)] mx-auto p-5 rounded-xl shadow-xl max-w-md w-full;
+    }
+
+    .close-modal {
+        @apply absolute right-4 top-2 text-2xl cursor-pointer text-[var(--text-color)] hover:opacity-70;
+    }
+
+    .found-categories {
+        @apply space-y-2;
+    }
+
+    .category {
+        @apply p-2 rounded-lg text-white text-sm;
+    }
+
+    .yellow { @apply bg-[var(--yellow-color)]; }
+    .green { @apply bg-[var(--green-color)]; }
+    .blue { @apply bg-[var(--blue-color)]; }
+    .purple { @apply bg-[var(--purple-color)]; }
+    .red { @apply bg-[var(--red-color)]; }
+    .orange { @apply bg-[var(--orange-color)]; }
+    .pink { @apply bg-[var(--pink-color)]; }
+    .teal { @apply bg-[var(--teal-color)]; }
+    .indigo { @apply bg-[var(--indigo-color)]; }
+    .brown { @apply bg-[var(--brown-color)]; }
+    .cyan { @apply bg-[var(--cyan-color)]; }
+    .lime { @apply bg-[var(--lime-color)]; }
+    .violet { @apply bg-[var(--violet-color)]; }
+    .magenta { @apply bg-[var(--magenta-color)]; }
+    .slate { @apply bg-[var(--slate-color)]; }
+    .emerald { @apply bg-[var(--emerald-color)]; }
+}
+
+/* Mobile Styles */
+@media (max-width: 600px) {
+    body {
+        font-size: 14px;
+        padding: 10px;
+    }
+    .container {
+        flex-direction: column;
+        align-items: center;
+    }
+    .word-tile {
+        width: 90%;
+        margin: 5px 0;
+    }
+}
+
+@media (max-width: 480px) {
+    body {
+        font-size: 12px;
+        padding: 5px;
+    }
+    .container {
+        padding: 10px;
+    }
+    .word-tile {
+        width: 80%;
+        margin: 3px 0;
+    }
+}
+
+@media (max-width: 320px) {
+    body {
+        font-size: 10px;
+        padding: 2px;
+    }
+    .container {
+        padding: 5px;
+    }
+    .word-tile {
+        width: 70%;
+        margin: 2px 0;
+    }
+}
+
+/* Message Animation Styles */
+@keyframes slideInDown {
+  from {
+    transform: translate3d(-50%, -100%, 0);
+    opacity: 0;
+  }
+  to {
+    transform: translate3d(-50%, 0, 0);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+.message-enter {
+  animation: slideInDown 0.3s ease-out forwards;
+}
+
+.message-exit {
+  animation: fadeOut 0.3s ease-in forwards;
+}
+
+/* Success Message Glow Effect */
+.success-message {
+  box-shadow: 0 0 15px rgba(72, 187, 120, 0.5);
+}
+
+/* Error Message Shake Effect */
+.error-message {
+  box-shadow: 0 0 15px rgba(245, 101, 101, 0.5);
+}
